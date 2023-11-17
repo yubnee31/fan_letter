@@ -1,19 +1,23 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "pages/Home";
-import Jisoo from "pages/Jisoo";
-import Jennie from "pages/Jennie";
-import Rose from "pages/Rose";
-import Lisa from "pages/Lisa";
+import Detail from "pages/Detail";
 
-const Router = () => {
+const Router = ({ fanLetters, setFanLetters }) => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="jisoo" element={<Jisoo />} />
-        <Route path="jennie" element={<Jennie />} />
-        <Route path="rose" element={<Rose />} />
-        <Route path="lisa" element={<Lisa />} />
+        <Route
+          path="/"
+          element={
+            <Home fanLetters={fanLetters} setFanLetters={setFanLetters} />
+          }
+        />
+        <Route
+          path="/detail/:id"
+          element={
+            <Detail fanLetters={fanLetters} setFanLetters={setFanLetters} />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
