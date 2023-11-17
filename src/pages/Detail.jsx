@@ -1,7 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { useState, useContext } from "react";
-import { Context } from "Context";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteFanletter,
+  updateFanletter,
+} from "redux/config/modules/fanletter";
 
 const StWholeBox = styled.div`
   height: 110vh;
@@ -111,13 +115,16 @@ const StBtn = styled.button`
 `;
 
 function Detail() {
-  const { fanLetters, setFanLetters } = useContext(Context);
-  const params = useParams();
+  const fanLetters = useSelector((state) => {
+    return state.fanletter;
+  });
+
+  const dispatch = useDispatch();
+
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  const foundletter = fanLetters.find(
-    (fanletter) => fanletter.id === params.id
-  );
+  const foundletter = fanLetters.find((fanletter) => fanletter.id === id);
   const [updateLetter, setUpdateLetter] = useState(foundletter.content);
   const [wantUpdate, setWantUpdate] = useState(true);
 
@@ -125,25 +132,16 @@ function Detail() {
     if (updateLetter === foundletter.content)
       alert("아무런 수정사항이 없습니다.");
     else {
-      setFanLetters(
-        fanLetters.map((item) => {
-          if (item.id === params.id) {
-            return { ...item, content: updateLetter };
-          } else return item;
-        })
-      );
+      dispatch(updateFanletter({ id, updateLetter }));
       alert("수정하시겠습니까?");
       navigate("/");
     }
   };
 
   const deleteBtn = () => {
-    const deleteLetter = fanLetters.filter(
-      (fanletter) => fanletter.id !== params.id
-    );
+    dispatch(deleteFanletter(id));
     alert("삭제하시겠습니까?");
 
-    setFanLetters(deleteLetter);
     navigate("/");
   };
 

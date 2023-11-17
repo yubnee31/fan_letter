@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import { useState } from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
-import { useContext } from "react";
-import { Context } from "Context";
+import { useDispatch } from "react-redux";
+import { completeFanletter } from "redux/config/modules/fanletter";
 
 const FanLetterFormDiv = styled.div`
   display: flex;
@@ -63,10 +63,10 @@ const SubmitBtnDiv = styled.div`
 `;
 
 function Form() {
-  const { fanLetters, setFanLetters } = useContext(Context);
   const [nickName, setNickName] = useState("");
   const [content, setContent] = useState("");
   const selectRef = useRef();
+  const dispatch = useDispatch();
 
   const date = new Date();
   const UpdataDate = `${date.getFullYear()}-${
@@ -89,7 +89,7 @@ function Form() {
       writedTo: selectArtist(),
       id: uuid(),
     };
-    setFanLetters([newFanLetter, ...fanLetters]);
+    dispatch(completeFanletter(newFanLetter));
     setNickName("");
     setContent("");
   };

@@ -1,9 +1,9 @@
 import Header from "components/Header";
 import Form from "components/Form";
 import Fanletter from "components/Fanletter";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Context } from "../Context";
+import { useSelector } from "react-redux";
 
 const StP = styled.p`
   font-weight: bold;
@@ -11,7 +11,9 @@ const StP = styled.p`
 `;
 
 function Home() {
-  const { fanLetters } = useContext(Context);
+  const fanLetters = useSelector((state) => {
+    return state.fanletter;
+  });
 
   const [artist, setArtist] = useState("Jisoo");
   return (
