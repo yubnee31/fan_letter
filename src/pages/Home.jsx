@@ -1,20 +1,23 @@
 import Header from "components/Header";
 import Form from "components/Form";
 import Fanletter from "components/Fanletter";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import { Context } from "../Context";
 
 const StP = styled.p`
   font-weight: bold;
   text-align: center;
 `;
 
-function Home({ fanLetters, setFanLetters }) {
+function Home() {
+  const { fanLetters } = useContext(Context);
+
   const [artist, setArtist] = useState("Jisoo");
   return (
     <div>
       <Header artist={artist} setArtist={setArtist} />
-      <Form fanLetters={fanLetters} setFanLetters={setFanLetters} />
+      <Form />
       <div>
         {fanLetters
           .filter((fanletter) => fanletter.writedTo === artist)

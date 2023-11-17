@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { Context } from "Context";
 
 const StWholeBox = styled.div`
   height: 110vh;
@@ -109,7 +110,8 @@ const StBtn = styled.button`
   border-radius: 10px;
 `;
 
-function Detail({ fanLetters, setFanLetters }) {
+function Detail() {
+  const { fanLetters, setFanLetters } = useContext(Context);
   const params = useParams();
   const navigate = useNavigate();
 

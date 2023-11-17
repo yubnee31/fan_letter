@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import { useState } from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
+import { useContext } from "react";
+import { Context } from "Context";
 
 const FanLetterFormDiv = styled.div`
   display: flex;
@@ -60,7 +62,8 @@ const SubmitBtnDiv = styled.div`
   justify-content: flex-end;
 `;
 
-function Form({ fanLetters, setFanLetters }) {
+function Form() {
+  const { fanLetters, setFanLetters } = useContext(Context);
   const [nickName, setNickName] = useState("");
   const [content, setContent] = useState("");
   const selectRef = useRef();
