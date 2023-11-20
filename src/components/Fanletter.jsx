@@ -24,6 +24,10 @@ const FanLetterList = styled.li`
   border-radius: 5px;
   cursor: pointer;
   color: white;
+  transition: all 0.2s;
+  &:hover {
+    transform: scale(1.02);
+  }
 `;
 
 const InfoSection = styled.section`

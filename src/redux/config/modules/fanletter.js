@@ -25,7 +25,7 @@ const fanletter = (state = initialState, action) => {
     case UPDATE:
       return state.map((fanletter) => {
         if (fanletter.id === action.payload.id)
-          fanletter.content = action.payload.updateLetter;
+          return { ...fanletter, content: action.payload.updateLetter };
         return fanletter;
       });
     default:
