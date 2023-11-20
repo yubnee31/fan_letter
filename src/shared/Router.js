@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "pages/Home";
 import Detail from "pages/Detail";
 
@@ -18,6 +18,7 @@ const Router = ({ fanLetters, setFanLetters }) => {
             <Detail fanLetters={fanLetters} setFanLetters={setFanLetters} />
           }
         />
+        <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </BrowserRouter>
   );

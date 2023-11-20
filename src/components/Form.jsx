@@ -77,6 +77,7 @@ function Form({ fanLetters, setFanLetters }) {
 
   const newLetter = (e) => {
     e.preventDefault();
+    if (!nickName || !content) return alert("닉네임과 내용은 필수값입니다.");
     const newFanLetter = {
       createdAt: UpdataDate,
       nickname: nickName,
