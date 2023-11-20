@@ -20,7 +20,7 @@ const FanLetterList = styled.li`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  border: 1px solid #f789a5;
+  border: 3px solid #f789a5;
   border-radius: 5px;
   cursor: pointer;
   color: white;
@@ -38,9 +38,9 @@ const ImgFigure = styled.figure`
 `;
 
 const Img = styled.img`
-  width: 50px;
-  height: 50px;
-  margin-top: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 50%;
 `;
 

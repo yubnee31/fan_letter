@@ -11,6 +11,7 @@ const StP = styled.p`
 `;
 
 function Home() {
+  //이곳에서
   const fanLetters = useSelector((state) => {
     return state.fanletter;
   });
