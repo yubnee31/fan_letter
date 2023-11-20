@@ -79,7 +79,7 @@ const StTo = styled.p`
   font-weight: 500;
 `;
 
-const StContext = styled.textarea`
+const StContext = styled.p`
   background-color: #f7a7bb;
   padding: 16px;
   font-size: 22px;
@@ -89,6 +89,19 @@ const StContext = styled.textarea`
   height: 275px;
   color: black;
   width: 750px;
+`;
+
+const Textarea = styled.textarea`
+  background-color: #f7a7bb;
+  padding: 16px;
+  font-size: 22px;
+  line-height: 48px;
+  border-radius: 20px;
+  margin: 22px 10px;
+  height: 275px;
+  color: black;
+  width: 750px;
+  resize: none;
 `;
 
 const BtnSection = styled.section`
@@ -126,13 +139,15 @@ function Detail() {
 
   const foundletter = fanLetters.find((fanletter) => fanletter.id === id);
   const [updateLetter, setUpdateLetter] = useState(foundletter.content);
-  const [wantUpdate, setWantUpdate] = useState(true);
+  const [wantUpdate, setWantUpdate] = useState(false);
 
   const updateBtn = () => {
     if (updateLetter === foundletter.content)
       alert("아무런 수정사항이 없습니다.");
     else {
       dispatch(updateFanletter({ id, updateLetter }));
+      setWantUpdate(false);
+      setUpdateLetter("");
       alert("수정하시겠습니까?");
       navigate("/");
     }
@@ -160,32 +175,38 @@ function Detail() {
             <StTime>{foundletter.createdAt}</StTime>
           </StHeader>
           <StTo>To: {foundletter.writedTo}</StTo>
-          <StContext
-            value={updateLetter}
-            onChange={(e) => setUpdateLetter(e.target.value)}
-          ></StContext>
         </div>
-        <BtnSection>
-          {wantUpdate ? (
-            <>
+
+        {wantUpdate ? (
+          <>
+            <Textarea
+              autoFocus
+              defaultValue={foundletter.content}
+              value={updateLetter}
+              onChange={(e) => setUpdateLetter(e.target.value)}
+            ></Textarea>
+            <BtnSection>
               <StBtnDiv>
-                <StBtn onClick={() => setWantUpdate(false)}>수정</StBtn>
+                <StBtn onClick={() => setWantUpdate(false)}>취소</StBtn>
+              </StBtnDiv>
+              <StBtnDiv>
+                <StBtn onClick={updateBtn}>수정완료</StBtn>
+              </StBtnDiv>
+            </BtnSection>
+          </>
+        ) : (
+          <>
+            <StContext>{foundletter.content}</StContext>
+            <BtnSection>
+              <StBtnDiv>
+                <StBtn onClick={() => setWantUpdate(true)}>수정</StBtn>
               </StBtnDiv>
               <StBtnDiv>
                 <StBtn onClick={deleteBtn}>삭제</StBtn>
               </StBtnDiv>
-            </>
-          ) : (
-            <>
-              <StBtnDiv>
-                <StBtn onClick={updateBtn}>수정완료</StBtn>
-              </StBtnDiv>
-              <StBtnDiv>
-                <StBtn onClick={() => setWantUpdate(true)}>취소</StBtn>
-              </StBtnDiv>
-            </>
-          )}
-        </BtnSection>
+            </BtnSection>
+          </>
+        )}
       </StDetailBox>
     </StWholeBox>
   );
